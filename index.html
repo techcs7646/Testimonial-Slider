@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonial Slider</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: paleturquoise;
+    }
+
+    .slider {
+      position: relative;
+      width: 80%;
+      max-width: 600px;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      background-color: antiquewhite;
+      opacity: 80%;
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+      
+    }
+
+    .slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      background-color: antiquewhite;
+      text-align: center;
+    }
+
+    .slide p {
+      font-size: 1.1em;
+      line-height: 1.5;
+      color: #555;
+    }
+
+    .slide h3 {
+      margin-top: 10px;
+      font-size: 1.2em;
+      color: #333;
+    }
+
+    .buttons {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+    }
+
+    .buttons button {
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 50%;
+      font-size: 1.2em;
+    }
+
+    .buttons button:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .dots {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .dot {
+      height: 10px;
+      width: 10px;
+      margin: 0 5px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background-color: #333;
+    }
+  </style>
+</head>
+<body >
+<div class="slider">
+  <div class="slides">
+    <div class="slide">
+      <p>"The service provided exceptional value and was tailored to our local needs. Truly outstanding!"</p>
+      <h3>- Rajesh Kumar</h3>
+    </div>
+    <div class="slide">
+      <p>"The team was incredibly professional, and the results exceeded all expectations. Highly recommend!"</p>
+      <h3>- Anjali Mehta</h3>
+    </div>
+    <div class="slide">
+      <p>"A remarkable experience. The attention to detail and understanding of our requirements were unparalleled."</p>
+      <h3>- Vikram Singh</h3>
+    </div>
+  </div>
+  <div class="buttons">
+    <button id="prev">&#10094;</button>
+    <button id="next">&#10095;</button>
+  </div>
+  <div class="dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelector('.slides');
+  const slide = document.querySelectorAll('.slide');
+  const dots = document.querySelectorAll('.dot');
+  let currentIndex = 0;
+
+  function showSlide(index) {
+    slides.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === index);
+    });
+  }
+
+  document.getElementById('prev').addEventListener('click', () => {
+    currentIndex = (currentIndex > 0) ? currentIndex - 1 : slide.length - 1;
+    showSlide(currentIndex);
+  });
+
+  document.getElementById('next').addEventListener('click', () => {
+    currentIndex = (currentIndex < slide.length - 1) ? currentIndex + 1 : 0;
+    showSlide(currentIndex);
+  });
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      currentIndex = i;
+      showSlide(currentIndex);
+    });
+  });
+
+  setInterval(() => {
+    currentIndex = (currentIndex < slide.length - 1) ? currentIndex + 1 : 0;
+    showSlide(currentIndex);
+  }, 5000);
+</script>
+
+</body>
+</html>
